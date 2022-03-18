@@ -31,8 +31,10 @@ def idx_to_str(idx):
 
 def clean_mess(exit=True):
     print("Files will be cleaned.")
-    shutil.rmtree(os.path.join(DATA_PATH, TRAIN_PATH))
-    shutil.rmtree(os.path.join(DATA_PATH, TEST_PATH))
+    if os.path.exists(os.path.join(DATA_PATH, TRAIN_PATH)):
+        shutil.rmtree(os.path.join(DATA_PATH, TRAIN_PATH))
+    if os.path.exists(os.path.join(DATA_PATH, TEST_PATH)):
+        shutil.rmtree(os.path.join(DATA_PATH, TEST_PATH))
     if exit: sys.exit(1)
 
 def check_data_integrity():
@@ -77,7 +79,7 @@ for idx, row in tqdm.tqdm(df.iterrows(), total=55000):
     except Exception as e:
         print("An error occured while downloading data:")
         print(e)
-        clean_mess()
+        continue
         
 try:
     label_train_df.to_csv(os.path.join(DATA_PATH, TRAIN_PATH, LABEL_PATH))
