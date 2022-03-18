@@ -28,28 +28,45 @@ def idx_to_str(idx):
         zeros -= 1
     return "0"*zeros + str(idx)
 
+def clean_mess():
+    print("Files will be cleaned and the program will exit.")
+    shutil.rmtree(os.path.join(DATA_PATH, TRAIN_PATH))
+    shutil.rmtree(os.path.join(DATA_PATH, TEST_PATH))
+    sys.exit(1)
+
 df = pd.read_csv(URI_CSV_PATH)
 train_idx, test_idx = 0, 0
+label_train_df, label_test_df = pd.DataFrame(columns=["file", "labels"]), pd.DataFrame(columns=["file", "labels"])
 
 
 for row in tqdm.tqdm(df.iter_rows()):
     uri = ROOT_URI + row["uri"]
     try:
         if row["split"] == "train":
-            name = idx_to_str(train_idx)
+            name = idx_to_str(train_idx) + ".jpg"
             urllib.request.urlretrieve(uri, os.path.join(DATA_PATH, TRAIN_PATH, IMAGES_PATH, name))
+            label_train_df.loc[train_idx] = {"file": name, "labels":row["labels"]}
+
             train_idx += 1
         elif row["split"] == "test":
             name = idx_to_str(test_idx)
             urllib.request.urlretrieve(uri, os.path.join(DATA_PATH, TEST_PATH, IMAGES_PATH, name))
+            label_test_df.loc[train_idx] = {"file": name, "labels":row["labels"]}
+
             test_idx += 1
         else:
             raise NotImplementedError
     except Exception as e:
         print("An error occured while downloading data:")
         print(e)
-        print("Files will be cleaned and the program will exit.")
-        shutil.rmtree(os.path.join(DATA_PATH, TRAIN_PATH))
-        shutil.rmtree(os.path.join(DATA_PATH, TEST_PATH))
-        sys.exit(1)
+        clean_mess()
+        
+try:
+    label_train_df.to_csv(os.path.join(DATA_PATH, TRAIN_PATH, LABEL_PATH))
+    label_test_df.to_csv(os.path.join(DATA_PATH, TEST_PATH, LABEL_PATH))
+except Exception as e:
+    print("An error occured while trying to write csv label files.")
+    print(e)
+    clean_mess()
 
+print("All data downloaded successfully.")
