@@ -1,5 +1,4 @@
 - Compléter environment.yml pour les environements conda
-- Nettoyer les données
 - Faire le README
 - starting kit submission batch_classifier.py
 - starting kit notebook
