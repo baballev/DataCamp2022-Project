@@ -1,7 +1,6 @@
-- Compléter environment.yml
-- Faire le download_data.py
+- Compléter environment.yml pour les environements conda
 - Nettoyer les données
 - Faire le README
 - starting kit submission batch_classifier.py
 - starting kit notebook
-
+- Check metrics dans le problem.py pour être sûr que ça fonctionne correctement intégré

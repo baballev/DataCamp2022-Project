@@ -34,12 +34,17 @@ def clean_mess():
     shutil.rmtree(os.path.join(DATA_PATH, TEST_PATH))
     sys.exit(1)
 
+def check_data_integrity():
+    # TODO
+    pass
+
+
 df = pd.read_csv(URI_CSV_PATH)
 train_idx, test_idx = 0, 0
 label_train_df, label_test_df = pd.DataFrame(columns=["file", "labels"]), pd.DataFrame(columns=["file", "labels"])
 
 
-for row in tqdm.tqdm(df.iter_rows()):
+for row in tqdm.tqdm(df.iterrows()):
     uri = ROOT_URI + row["uri"]
     try:
         if row["split"] == "train":
