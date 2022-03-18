@@ -8,7 +8,7 @@ import shutil
 
 socket.setdefaulttimeout(20)
 
-URI_CSV_PATH = "./data_location.csv"  
+URI_CSV_PATH = "./data_location_public.csv"  
 #       split        -          uri            -                labels
 # "train" or "test"  -  uri_resource_name.jpg  -  coma separated labels: 1, 3, 18, 22
 DATA_PATH = "./data/"
@@ -20,6 +20,7 @@ TEST_PATH = "test/"
 ROOT_URI = "https://images.openfoodfacts.org/images/products/"
 
 
+
 def idx_to_str(idx):
     tmp_idx = idx
     zeros = 6
@@ -28,15 +29,27 @@ def idx_to_str(idx):
         zeros -= 1
     return "0"*zeros + str(idx)
 
-def clean_mess():
-    print("Files will be cleaned and the program will exit.")
+def clean_mess(exit=True):
+    print("Files will be cleaned.")
     shutil.rmtree(os.path.join(DATA_PATH, TRAIN_PATH))
     shutil.rmtree(os.path.join(DATA_PATH, TEST_PATH))
-    sys.exit(1)
+    if exit: sys.exit(1)
 
 def check_data_integrity():
     # TODO
     pass
+
+clean_mess(exit=False)
+if not os.path.exists(DATA_PATH):
+    os.mkdir(DATA_PATH)
+if not os.path.exists(os.path.join(DATA_PATH, TRAIN_PATH)):
+    os.mkdir(os.path.join(DATA_PATH, TRAIN_PATH))
+if not os.path.exists(os.path.join(DATA_PATH, TRAIN_PATH, IMAGES_PATH)):
+    os.mkdir(os.path.join(DATA_PATH, TRAIN_PATH, IMAGES_PATH))
+if not os.path.exists(os.path.join(DATA_PATH, TEST_PATH)):
+    os.mkdir(os.path.join(DATA_PATH, TEST_PATH  ))
+if not os.path.exists(os.path.join(DATA_PATH, TEST_PATH, IMAGES_PATH)):
+    os.mkdir(os.path.join(DATA_PATH, TEST_PATH, IMAGES_PATH))
 
 
 df = pd.read_csv(URI_CSV_PATH)
@@ -44,7 +57,7 @@ train_idx, test_idx = 0, 0
 label_train_df, label_test_df = pd.DataFrame(columns=["file", "labels"]), pd.DataFrame(columns=["file", "labels"])
 
 
-for row in tqdm.tqdm(df.iterrows()):
+for idx, row in tqdm.tqdm(df.iterrows(), total=55000):
     uri = ROOT_URI + row["uri"]
     try:
         if row["split"] == "train":
@@ -54,7 +67,7 @@ for row in tqdm.tqdm(df.iterrows()):
 
             train_idx += 1
         elif row["split"] == "test":
-            name = idx_to_str(test_idx)
+            name = idx_to_str(test_idx) + ".jpg"
             urllib.request.urlretrieve(uri, os.path.join(DATA_PATH, TEST_PATH, IMAGES_PATH, name))
             label_test_df.loc[train_idx] = {"file": name, "labels":row["labels"]}
 
