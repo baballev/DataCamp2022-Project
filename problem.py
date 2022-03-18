@@ -24,37 +24,26 @@ def get_cv(X, y):
 
 _target_column_name = "labels"
 
-
 def _get_data(path=".", split="train"):
-    """
-    Returns
-    X : np.array
-        shape (N_images,)
-    y : np.array
-        shape (N_images,). Each element is a list of locations.
-
-    """
     base_data_path = os.path.abspath(os.path.join(path, "data", split))
     labels_path = os.path.join(base_data_path, "labels.csv")
-    labels = pd.read_csv(labels_path)
+    labels_df = pd.read_csv(labels_path)
     filepaths = []
-    locations = []
-    for filename, group in labels.groupby("filename"):
-        filepath = os.path.join(base_data_path, filename)
+    y = np.zeros((len(labels_df.index), len(_prediction_label_names)), dtype=float)
+    for j, row in enumerate(labels_df.iterrows()):
+        filename = row["file"]
+        filepath = os.path.join(base_data_path, "images/", filename)
         filepaths.append(filepath)
 
-        locations_in_image = [
-            {
-                "bbox": (row["xmin"], row["ymin"], row["xmax"], row["ymax"]),
-                "class": row["class"],
-            }
-            for _, row in group.iterrows()
-        ]
-        locations.append(locations_in_image)
-
+        # 1-hot encoding multiclass multilabel
+        file_labels = [int(l) for l in row["labels"].split(',')]
+        for i in file_labels:
+            y[j, i] = 1.0
+        
     X = np.array(filepaths, dtype=object)
-    y = np.array(locations, dtype=object)
+
     assert len(X) == len(y)
+    #TODO: check that the --quick-test works there
     if os.environ.get("RAMP_TEST_MODE", False):
         # launched with --quick-test option; only a small subset of the data
         X = X[[1, -1]]
