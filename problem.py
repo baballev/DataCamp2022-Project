@@ -2,14 +2,27 @@ import re
 import os
 import pandas as pd
 import rampwf as rw
+from sklearn.model_selection import StratifiedShuffleSplit
 
 problem_title = "Food Multi-classification"
 
-
-##TODO: Change function, just copied them from follicle detection challenge
 _prediction_label_names = [i for i in range(30)]
 
 Predictions = rw.prediction_types.make_multiclass(label_names=_prediction_label_names)
+
+workflow = rw.workflows.SimplifiedImageClassifier(n_classes=len(_prediction_label_names))
+
+# TODO: Check this, the metrics may be chosen more wisely.
+# Accuracy, Recall, F1, Precision
+# F1 = harmonic mean of precision and recall so we should probably not add recall & precision if we use F1
+score_types = [rw.score_types.Accuracy(), rw.score_types.F1Above()]
+
+
+def get_cv(X, y):
+
+
+    return _
+
 
 def _get_data(path=".", split="train"):
     """
@@ -46,6 +59,7 @@ def _get_data(path=".", split="train"):
         X = X[[1, -1]]
         y = y[[1, -1]]
     return X, y
+
 def get_train_data(path="."):
     """Get train data from ``data/train/labels.csv``
 
@@ -63,7 +77,6 @@ def get_train_data(path="."):
 
     """
     return _get_data(path, "train")
-
 
 def get_test_data(path="."):
     return _get_data(path, "test")
