@@ -1,6 +1,7 @@
 - Compléter environment.yml
 - Faire le download_data.py
-- Définir le data loading dans problem.py
 - Nettoyer les données
 - Faire le README
-- starting kit submission
+- starting kit submission batch_classifier.py
+- starting kit notebook
+
