@@ -1,5 +1,5 @@
-import re
 import os
+import numpy as np
 import pandas as pd
 import rampwf as rw
 from sklearn.model_selection import StratifiedShuffleSplit
@@ -19,9 +19,10 @@ score_types = [rw.score_types.Accuracy(), rw.score_types.F1Above()]
 
 
 def get_cv(X, y):
+    cv = StratifiedShuffleSplit(n_splits=4, test_size=0.2, random_state=42)
+    return cv.split(X, y)
 
-
-    return _
+_target_column_name = "labels"
 
 
 def _get_data(path=".", split="train"):
