@@ -1,31 +1,15 @@
+import re
+import os
+import pandas as pd
+import rampwf as rw
 
-problem_title = "Products Multi-classification"
+problem_title = "Food Multi-classification"
 
 
 ##TODO: Change function, just copied them from follicle detection challenge
-def get_cv(X, y):
-    """Split data by ovary number
+_prediction_label_names = [i for i in range(30)]
 
-    Uses LeaveOneGroupOut where each group is a set of images
-    that correspond to a given overy number.
-
-    Parameters:
-    -----------
-    X : np.array
-        array of image absolute paths
-    y : np.array
-        array of lists of true follicule locations
-
-    """
-
-    def extract_ovary_number(filename):
-        digit = re.match(r".*M0(\d)-\d.*", filename).group(1)
-        return int(digit)
-
-    groups = [extract_ovary_number(filename) for filename in X]
-    cv = LeaveOneGroupOut()
-    return cv.split(X, y, groups)
-
+Predictions = rw.prediction_types.make_multiclass(label_names=_prediction_label_names)
 
 def _get_data(path=".", split="train"):
     """

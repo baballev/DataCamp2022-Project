@@ -1,0 +1,7 @@
+- Compléter environment.yml
+- Faire le download_data.py
+- Définir le data loading dans problem.py
+- Définir les métrics dans problem.py
+- Nettoyer les données
+- Faire le README
+- starting kit submission
