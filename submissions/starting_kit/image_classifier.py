@@ -14,9 +14,15 @@ class ImageClassifier():
         print("hello")
 
 
-    def fit(self, img_loader):
-        print(img_loader)
+    def fit(self, data_loader):
+        
+        for data in data_loader:
+            img, labels = data
+            print(img.shape)
+            print(labels)
+            break
+
         return self
 
-    def predict_proba(self, img_loader):
+    def predict_proba(self, data_loader):
         pass
