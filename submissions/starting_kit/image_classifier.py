@@ -9,14 +9,14 @@ filtered_categories = [s.lower() for s in filtered_categories]
 CLASS_TO_INDEX = {filtered_categories[i]:i for i in range(len(filtered_categories))}
 INDEX_TO_CLASS = {i:filtered_categories[i] for i in range(len(filtered_categories))}
 
-class BatchClassifier():
+class ImageClassifier():
     def __init__(self) -> None:
-        pass
+        print("hello")
 
 
-    def fit(self, X, y):
-        
+    def fit(self, img_loader):
+        print(img_loader)
         return self
 
-    def predict_prob(self, X):
+    def predict_proba(self, img_loader):
         pass
