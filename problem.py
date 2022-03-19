@@ -36,7 +36,7 @@ def _get_data(path=".", split="train"):
         filepaths.append(filepath)
 
         # 1-hot encoding multiclass multilabel
-        file_labels = [int(l) for l in row["labels"].split(',')]
+        file_labels = [int(l) for l in row["labels"].split(';')]
         for i in file_labels:
             y[j, i] = 1.0
         
