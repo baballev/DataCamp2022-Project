@@ -30,7 +30,7 @@ def _get_data(path=".", split="train"):
     labels_df = pd.read_csv(labels_path)
     filepaths = []
     y = np.zeros((len(labels_df.index), len(_prediction_label_names)), dtype=float)
-    for j, row in enumerate(labels_df.iterrows()):
+    for j, (i, row) in enumerate(labels_df.iterrows()):
         filename = row["file"]
         filepath = os.path.join(base_data_path, "images/", filename)
         filepaths.append(filepath)
