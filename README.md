@@ -1,6 +1,6 @@
 # Multilabel Food Products Classification Challenge
 
-Authors: Vincent Josse, Pierre Piovesian, Adame Ben Friha, Romin Durand, Benjamin Cohen & Huan Trochon
+Authors: Vincent Josse, Pierre Piovesan, Adame Ben Friha, Romin Durand, Benjamin Cohen & Huan Trochon
 
 Datacamp project 2022 for Master Data Science IP Paris
 
