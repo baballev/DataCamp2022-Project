@@ -11,7 +11,7 @@ INDEX_TO_CLASS = {i:filtered_categories[i] for i in range(len(filtered_categorie
 
 class ImageClassifier():
     def __init__(self) -> None:
-        print("hello")
+          print("Hello World")
 
 
     def fit(self, data_loader):
