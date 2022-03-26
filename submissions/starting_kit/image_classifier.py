@@ -1,5 +1,5 @@
 from tensorflow.keras.models import Sequential
-from tensorflow.keras.layers import Conv2D, Activation, MaxPooling2D, Flatten, Dense
+from tensorflow.keras.layers import Resizing, Conv2D, Activation, MaxPooling2D, Flatten, Dense
 
 filtered_categories = ["Beverages", "Sweet snacks", "Dairies", "Cereals and potatoes", "Meats", "Fermented foods",
                        "Fermented milk products",
@@ -23,12 +23,17 @@ pool_size = (2, 2)
 
 
 class ImageClassifier:
-    def __init__(self, img_rows, img_cols):
-        input_shape1 = (img_rows, img_cols, 3)
-        input_shape2 = (img_rows, img_cols, nb_filters)
-        input_shape3 = (img_rows // 2, img_cols // 2, nb_filters)
+    def __init__(self):
+        self.batch_size = 300
+        self.n_epochs = 100
+        self.img_rows = 30
+        self.img_cols = 30
+        input_shape1 = (self.img_rows, self.img_cols, 3)
+        input_shape2 = (self.img_rows, self.img_cols, nb_filters)
+        input_shape3 = (self.img_rows // 2, self.img_cols // 2, nb_filters)
 
         self.model = Sequential()
+        self.model.add(Resizing(height=self.img_rows, width=self.img_cols))
         self.model.add(Conv2D(filters=nb_filters, kernel_size=kernel_size, input_shape=input_shape1, padding='same'))
         self.model.add(Activation('relu'))
 
@@ -46,15 +51,14 @@ class ImageClassifier:
 
         self.model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])
 
-    def fit(self, data_loader, batch_size, n_epochs):
+    def fit(self, data_loader):
         X_train = []
         Y_train = []
         for data in data_loader:
             img, labels = data
             X_train.append(img)
             Y_train.append(labels)
-        print(self.model.summary())
-        self.model.fit(X_train, Y_train, batch_size=batch_size, epochs=n_epochs)
+        self.model.fit(X_train, Y_train, batch_size=self.batch_size, epochs=self.n_epochs)
 
         return self
 
@@ -62,5 +66,5 @@ class ImageClassifier:
         Y_pred = []
         for data in data_loader:
             img, labels = data
-            Y_pred.append((self.model(img)))
+            Y_pred.append((self.model.predict(img)))
         return Y_pred
