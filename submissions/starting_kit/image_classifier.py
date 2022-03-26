@@ -112,7 +112,7 @@ class ImageClassifier():
                         tmp[0, 1, :, :] = imgs
                         tmp[0, 2, :, :] = imgs
                         imgs = tmp
-                    model_result = self.model(imgs).cpu()
+                    model_result = self.model(imgs)
                     tot = model_result
 
             if i != 0:
