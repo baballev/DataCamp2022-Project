@@ -92,7 +92,7 @@ class ImageClassifier():
                 self.optimizer.step()
                 batch_losses.append(batch_loss_value)
                 iteration += 1
-                break
+                
             loss_value = np.mean(batch_losses)
             epoch += 1
             if max_epoch_number < epoch:
@@ -121,7 +121,7 @@ class ImageClassifier():
                     imgs = T.ToTensor()(T.Resize(IMG_SIZE)(Image.fromarray(imgs))).to(self.device)
                     imgs = imgs.unsqueeze(0)
                     if imgs.shape[1] == 1:
-                        tmp = torch.zeros((imgs.shape[0], 3, imgs.shape[2], imgs.shape[3]))
+                        tmp = torch.zeros((imgs.shape[0], 3, imgs.shape[2], imgs.shape[3])).to(self.device)
                         tmp[0, 0, :, :] = imgs
                         tmp[0, 1, :, :] = imgs
                         tmp[0, 2, :, :] = imgs
