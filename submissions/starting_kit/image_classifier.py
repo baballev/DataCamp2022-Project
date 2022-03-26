@@ -37,15 +37,9 @@ class ImageClassifier:
         self.model.add(Conv2D(filters=nb_filters, kernel_size=kernel_size, input_shape=input_shape1, padding='same'))
         self.model.add(Activation('relu'))
 
-<<<<<<< HEAD
-class ImageClassifier():
-    def __init__(self) -> None:
-          print("Hello World")
-=======
         self.model.add(Conv2D(filters=nb_filters, kernel_size=kernel_size, input_shape=input_shape2, padding='same'))
         self.model.add(Activation('relu'))
         self.model.add(MaxPooling2D(pool_size=pool_size, strides=(2, 2), padding='same'))
->>>>>>> romin
 
         self.model.add(Conv2D(filters=nb_filters, kernel_size=kernel_size, input_shape=input_shape3, padding='same'))
         self.model.add(Activation('relu'))
@@ -69,12 +63,8 @@ class ImageClassifier():
         return self
 
     def predict_proba(self, data_loader):
-<<<<<<< HEAD
-        pass
-=======
         Y_pred = []
         for data in data_loader:
             img, labels = data
             Y_pred.append((self.model.predict(img)))
         return Y_pred
->>>>>>> romin
