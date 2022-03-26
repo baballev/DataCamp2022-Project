@@ -27,7 +27,9 @@ def get_cv(folder_X, y):
     cv = ShuffleSplit(n_splits=4, test_size=0.2, random_state=42)
     return cv.split(X, y)
 
+
 _target_column_name = "labels"
+
 
 def _get_data(path=".", split="train"):
     base_data_path = os.path.abspath(os.path.join(path, "data", split))
@@ -37,18 +39,18 @@ def _get_data(path=".", split="train"):
     y = np.zeros((len(labels_df.index), len(_prediction_label_names)), dtype=float)
     for j, (i, row) in enumerate(labels_df.iterrows()):
         filename = row["file"]
-        #filepath = os.path.join(base_data_path, "images/", filename)
+        # filepath = os.path.join(base_data_path, "images/", filename)
         filepaths.append(filename)
 
         # 1-hot encoding multiclass multilabel
         file_labels = [int(l) for l in row["labels"].split(';')]
         for i in file_labels:
             y[j, i] = 1.0
-        
+
     X = np.array(filepaths, dtype=object)
 
     assert len(X) == len(y)
-    #TODO: check that the --quick-test works there
+    # TODO: check that the --quick-test works there
     '''
     if os.environ.get("RAMP_TEST_MODE", False):
         # launched with --quick-test option; only a small subset of the data
@@ -56,6 +58,7 @@ def _get_data(path=".", split="train"):
         y = y[[1, -1]]
     '''
     return (os.path.join(base_data_path, "images/"), X), y
+
 
 def get_train_data(path="."):
     """Get train data from ``data/train/labels.csv``
@@ -74,6 +77,7 @@ def get_train_data(path="."):
 
     """
     return _get_data(path, "train")
+
 
 def get_test_data(path="."):
     return _get_data(path, "test")
