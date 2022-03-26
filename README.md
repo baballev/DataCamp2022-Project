@@ -12,6 +12,15 @@ Authors: Vincent Josse, Pierre Piovesan, Adame Ben Friha, Romin Durand, Benjamin
 
 This challenge consists in classifying images from the [OpenFoodFacts](https://world.openfoodfacts.org/) database by attributing them their tags. There are 30 tags for this challenge, and each image correspond to one or multiple tags. In other words, this challenge is a Multilabel Classification Task.
 
+### Data Description
+
+Open Food Facts is a collaborative project aimed at building a free and open database of food products marketed worldwide. The media sometimes compare it to Wikipedia because of its collaborative way of working and the use of free licenses.
+
+For each product listed, we find, in particular, a generic name of the product, its quantity, the packaging (cardboard, frozen, etc.), the brand or brands of the product (in particular the main brand and any subsidiary brands), the food category of the product to allow comparisons, places of manufacture or processing, stores and countries where the product is for sale, list of ingredients and possible traces (for allergies, food bans or any specific diet), food additives detected from the latter, and nutritional information.
+
+The French government even promotes its use on official websites and has encouraged the creation of similar projects in cosmetics, Open Beauty Facts, or animal food, Open Pet Food Facts.
+
+[OpenFoodFacts.data.gouv.fr](https://www.data.gouv.fr/fr/organizations/open-food-facts/?msclkid=d83e9bc2ace511ecb71758e750feb774)
 
 ### Installation Instructions
 
