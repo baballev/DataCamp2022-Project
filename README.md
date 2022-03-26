@@ -10,7 +10,7 @@ Authors: Vincent Josse, Pierre Piovesan, Adame Ben Friha, Romin Durand, Benjamin
 
 ![OpenFoodFacts](https://world.openfoodfacts.org/images/misc/openfoodfacts-logo-en-178x150.png)
 
-This challenge consists ion classifying images from the [OpenFoodFacts](https://world.openfoodfacts.org/) database by attributing them their tags. There are 30 tags for this challenge, and each image correspond to one or multiple tags. In other words, this challenge is a Multilabel Classification Task.
+This challenge consists in classifying images from the [OpenFoodFacts](https://world.openfoodfacts.org/) database by attributing them their tags. There are 30 tags for this challenge, and each image correspond to one or multiple tags. In other words, this challenge is a Multilabel Classification Task.
 
 
 ### Installation Instructions
