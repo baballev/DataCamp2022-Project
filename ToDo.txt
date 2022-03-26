@@ -1,5 +1,4 @@
 - Compléter environment.yml pour les environements conda
-- Faire le README
 - starting kit submission image_classifier.py
 - starting kit notebook
 - Check metrics dans le problem.py pour être sûr que ça fonctionne correctement intégré
