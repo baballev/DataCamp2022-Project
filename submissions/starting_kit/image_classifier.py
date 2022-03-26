@@ -27,6 +27,7 @@ CLASS_TO_INDEX = {filtered_categories[i]: i for i in range(len(filtered_categori
 INDEX_TO_CLASS = {i: filtered_categories[i] for i in range(len(filtered_categories))}
 
 IMG_SIZE = (256, 256)
+BATCH_SIZE = 4
 
 transforms = T.Compose([T.Resize(IMG_SIZE), T.ToTensor()])
 
@@ -68,13 +69,6 @@ class MultilabelDataset(torch.utils.data.Dataset):
 
     def __len__(self):
         return len(self.img_paths)
-
-
-train_set = MultilabelDataset(os.path.join(os.path.abspath(os.path.curdir), "data", "train"), transform=transforms)
-test_set = MultilabelDataset(os.path.join(os.path.abspath(os.path.curdir), "data", "test"), transform=transforms)
-
-train_loader = torch.utils.data.DataLoader(train_set, batch_size=BATCH_SIZE, num_workers=0)
-test_loader = torch.utils.data.DataLoader(test_set, batch_size=BATCH_SIZE, num_workers=0)
 
 
 class CNN(nn.Module):
@@ -128,3 +122,13 @@ class ImageClassifier:
             img, labels = data
             Y_pred.append((self.net(img)))
         return Y_pred
+
+
+train_set = MultilabelDataset(os.path.join(os.path.abspath(os.path.curdir), "data", "train"), transform=transforms)
+test_set = MultilabelDataset(os.path.join(os.path.abspath(os.path.curdir), "data", "test"), transform=transforms)
+
+train_loader = torch.utils.data.DataLoader(train_set, batch_size=BATCH_SIZE, num_workers=0)
+test_loader = torch.utils.data.DataLoader(test_set, batch_size=BATCH_SIZE, num_workers=0)
+
+classifier = ImageClassifier().fit(train_loader)
+y_pred = ImageClassifier().predict_proba(test_set)
