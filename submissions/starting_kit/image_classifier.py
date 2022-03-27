@@ -128,4 +128,4 @@ class ImageClassifier():
                         imgs = tmp
                     model_result = self.model(imgs)
                     tot = torch.cat((tot,model_result), 0)
-        return tot
+        return tot.cpu()

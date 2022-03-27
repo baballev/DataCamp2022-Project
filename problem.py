@@ -51,12 +51,12 @@ def _get_data(path=".", split="train"):
 
     assert len(X) == len(y)
     # TODO: check that the --quick-test works there
-    '''
+    
     if os.environ.get("RAMP_TEST_MODE", False):
         # launched with --quick-test option; only a small subset of the data
         X = X[[1, -1]]
         y = y[[1, -1]]
-    '''
+    
     return (os.path.join(base_data_path, "images/"), X), y
 
 
